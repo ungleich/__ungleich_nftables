@@ -1,0 +1,15 @@
+config=$(cat "$__object/parameter/config")
+
+srcfile="$__files/${config}.conf"
+initscript="$__type/files/nftables-init"
+
+if [ ! -f "$srcfile" ]; then
+   echo "No such config ${config}. Aborting." >&2
+   exit 1
+fi
+
+__package nftables
+__file /etc/nftables.conf --source "$srcfile" --mode 0644
+__file /etc/init.d/nftables --source "$initscript" --mode 0755
+
+require="__file/etc/init.d/nftables" __start_on_boot nftables
