@@ -1,6 +1,6 @@
 config=$(cat "$__object/parameter/config")
 
-srcfile="$__files/${config}.conf"
+srcfile="$__files/nftables/${config}.conf"
 initscript="$__type/files/nftables-init"
 
 if [ ! -f "$srcfile" ]; then
