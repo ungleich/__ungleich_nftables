@@ -1,0 +1,37 @@
+#!/bin/sh
+# Nico Schottelius, nico.schottelius at ungleich.ch
+# 2017-07-01
+### BEGIN INIT INFO
+# Provides:          nftables
+# Required-Start:
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: nftable rules
+### END INIT INFO
+
+
+
+CONF=/etc/nftables.conf
+BIN=/usr/sbin/nft
+
+[ -x "$BIN" ] || exit 0
+
+case "$1" in
+    start)
+        $BIN flush ruleset
+        $BIN -f $CONF
+        ;;
+    restart)
+        $0 stop && $0 start
+	    ;;
+    stop)
+        $BIN flush ruleset
+	    ;;
+    *)
+	    echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
+	    exit 1
+	    ;;
+esac
