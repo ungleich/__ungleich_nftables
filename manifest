@@ -1,11 +1,22 @@
 config=$(cat "$__object/parameter/config")
 
-srcfile="$__files/nftables/${config}.conf"
 initscript="$__type/files/nftables-init"
 
-if [ ! -f "$srcfile" ]; then
-   echo "No such config ${config}. Aborting." >&2
-   exit 1
+if [ -f "$__object/parameter/config-from_stdin" ]; then
+   srcfile="$__object/stdin"
+else
+    if [ ! -f "$__object/parameter/config" ]; then
+        echo "Need either config-from-stdin or config" >&2
+        exit 1
+    fi
+
+    srcfile="$__files/nftables/${config}.conf"
+
+    if [ ! -f "$srcfile" ]; then
+        echo "No such config ${config}. Aborting." >&2
+        exit 1
+    fi
+
 fi
 
 __package nftables
