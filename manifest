@@ -1,5 +1,3 @@
-config=$(cat "$__object/parameter/config")
-
 initscript="$__type/files/nftables-init"
 
 if [ -f "$__object/parameter/config-from_stdin" ]; then
@@ -10,6 +8,7 @@ else
         exit 1
     fi
 
+    config=$(cat "$__object/parameter/config")
     srcfile="$__files/nftables/${config}.conf"
 
     if [ ! -f "$srcfile" ]; then
