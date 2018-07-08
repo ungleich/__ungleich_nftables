@@ -1,6 +1,6 @@
 initscript="$__type/files/nftables-init"
 
-if [ -f "$__object/parameter/config-from_stdin" ]; then
+if [ -f "$__object/parameter/config-from-stdin" ]; then
    srcfile="$__object/stdin"
 else
     if [ ! -f "$__object/parameter/config" ]; then
