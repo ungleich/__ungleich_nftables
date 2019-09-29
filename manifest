@@ -23,7 +23,7 @@ else
 fi
 
 __package nftables
-__file /etc/nftables.conf --source "$srcfile" --mode 0644
+__file ${conf} --source "$srcfile" --mode 0644
 
 case $os in
     # Alpine actually has an init script, as opposed to everyone else
