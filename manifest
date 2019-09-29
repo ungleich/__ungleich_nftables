@@ -1,5 +1,9 @@
 initscript="$__type/files/nftables-init"
 
+os=$(cat $__global/explorer/os)
+
+conf=/etc/firewall.nft
+
 if [ -f "$__object/parameter/config-from-stdin" ]; then
    srcfile="$__object/stdin"
 else
@@ -20,6 +24,20 @@ fi
 
 __package nftables
 __file /etc/nftables.conf --source "$srcfile" --mode 0644
-__file /etc/init.d/nftables --source "$initscript" --mode 0755
 
-require="__file/etc/init.d/nftables" __start_on_boot nftables
+case $os in
+    # Alpine actually has an init script, as opposed to everyone else
+
+    alpine)
+        :
+        ;;
+    debian|devuan)
+        __file /etc/init.d/nftables --source "$initscript" --mode 0755
+        ;;
+    *)
+        echo "Unsupported os: $os" >&2
+        exit 1
+        ;;
+esac
+
+require="__package/nftables" __start_on_boot nftables

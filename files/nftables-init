@@ -14,7 +14,7 @@
 
 
 
-CONF=/etc/nftables.conf
+CONF=/etc/nftables.nft
 BIN=/usr/sbin/nft
 
 [ -x "$BIN" ] || exit 0
