@@ -14,7 +14,7 @@
 
 
 
-CONF=/etc/nftables.nft
+CONF=/etc/firewall.nft
 BIN=/usr/sbin/nft
 
 [ -x "$BIN" ] || exit 0
