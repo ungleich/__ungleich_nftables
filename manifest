@@ -2,7 +2,7 @@ initscript="$__type/files/nftables-init"
 
 os=$(cat $__global/explorer/os)
 
-conf=/etc/firewall.nft
+conf=/etc/nftables.nft
 
 if [ -f "$__object/parameter/config-from-stdin" ]; then
    srcfile="$__object/stdin"
